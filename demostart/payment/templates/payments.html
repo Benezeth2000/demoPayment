@@ -1,0 +1,34 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'payment.css' %}">
+
+    <title>Title</title>
+</head>
+<body>
+
+<div class="row" style="border: none;">
+    <div class="col" style="padding-bottom: 20px;">
+        <div class="card" style="width: 100px; border: none;">
+            <img src="{{ book.image.url }}" alt="{{ book.bookName }}">
+        </div>
+    </div>
+    <div>
+        <h3 style="margin-top: 10px; margin-bottom: 2px;">Pay via M-PESA</h3>
+    </div>
+
+    <input class="place" type="text" placeholder="+255627813944">
+    <div>
+        <button type="submit">Request PIN on Phone</button>
+    </div>
+         <h6 style="margin-top: 10px; margin-bottom: 2px;">Keep phone unlocked while waiting PIN request</h6>
+    <div>
+        <button type="submi">Cancel payment</button>
+    </div>
+
+</div>
+
+</body>
+</html>

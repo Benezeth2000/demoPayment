@@ -11,10 +11,27 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
+import dj_database_url
+import os
+import firebase_admin
+from firebase_admin import credentials
+
+firebaseConfig = {
+    "apiKey": "AIzaSyCfbubhTk2m5Sp2VJophn6TwloCRfvRHmY",
+    "authDomain": "garbage-164ba.firebaseapp.com",
+    "databaseURL": "https://garbage-164ba-default-rtdb.firebaseio.com",
+    "projectId": "garbage-164ba",
+    "storageBucket": "garbage-164ba.appspot.com",
+    "messagingSenderId": "406029003743",
+    "appId": "1:406029003743:web:49a4775bdbeefa1270b26a",
+    "measurementId": "G-24VX9N61HT"
+}
+
+FIREBASE_DATABASE_URL = "https://garbage-164ba-default-rtdb.firebaseio.com"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -25,8 +42,7 @@ SECRET_KEY = 'django-insecure-&)q_-_r)tynjbixmwm^flo6a+ub_gz*g#@qgie7m@x@mvd$*uh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -37,6 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'firebase_admin',
+    'reglog.apps.ReglogConfig',
+    'payment.apps.PaymentConfig'
 ]
 
 MIDDLEWARE = [
@@ -69,17 +88,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'demostart.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'HOST': 'localhost',
+        'NAME': 'garbageDB',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -99,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -111,13 +128,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred)

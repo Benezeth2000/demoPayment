@@ -1,0 +1,80 @@
+{% load static %}
+<html>
+<head>
+    <title>Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+
+
+<body>
+
+
+<div class="bottom1">
+    <button class="dropbtn">Terms</button>
+</div>
+
+<div class="bottom">
+    <button class="dropbtn">Our mission</button>
+</div>
+
+
+<div class="dropdown">
+    <button class="dropbtn">English <i class="fa fa-caret-down"></i></button>
+    <div class="dropdown-content">
+        <a href="#">Swahili</a>
+    </div>
+</div>
+
+<div class="login-container">
+    <header class="headerEbooks">Garbage Collection Payment System(GCPS)</header>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <input type="text" id="username" name="username" placeholder="Email" required>
+        </div>
+        <div class="password-forgot">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+            <a href="#" class="forgot-password">Forgot your password?</a>
+        </div>
+
+        {% if messages %}
+        <ul class="messages" style="color: red">
+            {% for message in messages %}
+            <li
+                    {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if message == "No internet connection available" %}
+        <p style="color: red" class="error-message">{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        <button class="form-group" type="submit">Login</button>
+
+        <div class="form-group">
+            Don't have an account?
+            <a href="{% url 'reglog:register' %}">Signup now</a>
+        </div>
+
+    </form>
+</div>
+
+<script src="dropdownmenuLogIn.js"></script>
+</body>
+
+</html>

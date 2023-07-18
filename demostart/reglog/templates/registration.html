@@ -1,0 +1,94 @@
+{% load static %}
+<html>
+<head>
+    <title>Registration</title>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+
+
+<body>
+
+
+<div class="bottom1">
+    <button class="dropbtn">Terms</button>
+</div>
+
+<div class="bottom">
+    <button class="dropbtn">Our mission</button>
+</div>
+
+
+<div class="dropdown">
+    <button class="dropbtn">English <i class="fa fa-caret-down"></i></button>
+    <div class="dropdown-content">
+        <a href="#">Swahili</a>
+    </div>
+</div>
+
+<div class="login-container">
+    <header class="headerRegister">Create an Account</header>
+    <p class="top">Create an account to pay your garbage bills with our system fast and secure</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="form-group1">
+            <h6 class="form-group1">
+                By registering, you agree to our
+                <a href="#" class="forgot-password">Terms of Service</a>
+            </h6>
+        </div>
+
+        {% if messages %}
+        <ul class="messages" style="color: red">
+            {% for message in messages %}
+            <li
+                    {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if message == "No internet connection available" %}
+        <p style="color: red" class="error-message">{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        {% if error_message %}
+        <p style="color: red" class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        <button class="form-group" type="submit">Create Account</button>
+
+        <div class="form-group">
+            Already have an account?
+            <a href="{% url 'reglog:loginpage' %}">Log In</a>
+        </div>
+
+    </form>
+</div>
+
+<script src="dropdownmenuLogIn.js"></script>
+</body>
+
+</html>

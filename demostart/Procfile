@@ -1,0 +1,1 @@
+web gunicorn demostart.wsgi:application --log-file -
